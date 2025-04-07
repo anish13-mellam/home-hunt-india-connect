@@ -20,11 +20,21 @@ import {
 
 const HeroSection = () => {
   const [searchType, setSearchType] = useState("buy");
+  const [location, setLocation] = useState("");
+  const [propertyType, setPropertyType] = useState("all");
+  const [budget, setBudget] = useState("budget");
   const navigate = useNavigate();
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate(`/${searchType}`);
+    
+    const params = new URLSearchParams();
+    params.set("type", searchType);
+    if (location) params.set("location", location);
+    if (propertyType !== "all") params.set("propertyType", propertyType);
+    if (budget !== "budget") params.set("budget", budget);
+    
+    navigate(`/search?${params.toString()}`);
   };
 
   return (
@@ -60,13 +70,18 @@ const HeroSection = () => {
                   <div className="flex-grow relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                     <Input 
-                      placeholder="Enter city, locality or project" 
+                      placeholder="Enter city, locality or project"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
                       className="pl-10"
                     />
                   </div>
                   
                   <div className="grid grid-cols-2 gap-2 md:w-1/2">
-                    <Select defaultValue="all">
+                    <Select 
+                      defaultValue="all"
+                      onValueChange={setPropertyType}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Property Type" />
                       </SelectTrigger>
@@ -79,7 +94,10 @@ const HeroSection = () => {
                       </SelectContent>
                     </Select>
                     
-                    <Select defaultValue="budget">
+                    <Select 
+                      defaultValue="budget"
+                      onValueChange={setBudget}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Budget" />
                       </SelectTrigger>
