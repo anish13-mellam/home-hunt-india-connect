@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
+import BuyerProfile from "./pages/BuyerProfile";
+import AgentProfile from "./pages/AgentProfile";
 
 const queryClient = new QueryClient();
 
@@ -27,8 +29,10 @@ const App = () => (
           <Route path="/register" element={<Index />} />
           <Route path="/add-listing" element={<Index />} />
           <Route path="/messages" element={<Index />} />
-          <Route path="/profile" element={<Index />} />
-          <Route path="/favorites" element={<Index />} />
+          <Route path="/profile/buyer" element={<BuyerProfile />} />
+          <Route path="/profile/agent" element={<AgentProfile />} />
+          <Route path="/profile" element={<BuyerProfile />} /> {/* Default to buyer profile */}
+          <Route path="/favorites" element={<BuyerProfile />} />
           <Route path="/property/:id" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

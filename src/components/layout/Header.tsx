@@ -10,7 +10,8 @@ import {
   User, 
   MessageCircle,
   Home,
-  Building
+  Building,
+  Heart
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -55,6 +56,13 @@ const Header = () => {
                 </Link>
               </Button>
               
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/favorites">
+                  <Heart className="h-5 w-5 mr-1" />
+                  <span>Favorites</span>
+                </Link>
+              </Button>
+              
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="icon">
@@ -72,7 +80,10 @@ const Header = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/profile/buyer">Buyer Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile/agent">Agent Profile</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/favorites">Saved Properties</Link>
@@ -124,6 +135,11 @@ const Header = () => {
               <Link to="/messages" className="text-lg font-medium p-2 hover:bg-muted rounded-md flex items-center gap-2">
                 <MessageCircle className="h-5 w-5" /> Messages
               </Link>
+              <Link to="/favorites" className="text-lg font-medium p-2 hover:bg-muted rounded-md flex items-center gap-2">
+                <Heart className="h-5 w-5" /> Favorites
+              </Link>
+              <Link to="/profile/buyer" className="text-lg font-medium p-2 hover:bg-muted rounded-md">Buyer Profile</Link>
+              <Link to="/profile/agent" className="text-lg font-medium p-2 hover:bg-muted rounded-md">Agent Profile</Link>
               <Link to="/login" className="text-lg font-medium p-2 hover:bg-muted rounded-md">Login</Link>
               <Link to="/register" className="text-lg font-medium p-2 hover:bg-muted rounded-md">Register</Link>
               
