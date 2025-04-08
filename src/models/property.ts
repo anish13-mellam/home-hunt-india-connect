@@ -5,7 +5,7 @@ import { Property } from "@/lib/db";
 // Function to get all properties
 export const getAllProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find({}).lean();
+    const result = await Property.find().lean().exec();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -29,7 +29,7 @@ export const getAllProperties = async (): Promise<PropertyType[]> => {
 // Function to get featured properties
 export const getFeaturedProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find({ featured: true }).lean();
+    const result = await Property.find({ featured: true }).lean().exec();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -53,7 +53,7 @@ export const getFeaturedProperties = async (): Promise<PropertyType[]> => {
 // Function to get rental properties
 export const getRentalProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find({ forRent: true }).lean();
+    const result = await Property.find({ forRent: true }).lean().exec();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -77,7 +77,7 @@ export const getRentalProperties = async (): Promise<PropertyType[]> => {
 // Function to get property by ID
 export const getPropertyById = async (id: string): Promise<PropertyType | null> => {
   try {
-    const doc = await Property.findById(id).lean();
+    const doc = await Property.findById(id).lean().exec();
     if (!doc) return null;
     
     return {
