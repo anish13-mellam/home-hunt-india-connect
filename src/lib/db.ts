@@ -7,7 +7,7 @@ export interface DbConfig {
 }
 
 export const dbConfig: DbConfig = {
-  uri: process.env.MONGODB_URI || "mongodb+srv://<username>:<password>@cluster0.mongodb.net",
+  uri: process.env.MONGODB_URI || "mongodb://localhost:27017",
   dbName: "homehunt_india"
 };
 
