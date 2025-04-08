@@ -48,62 +48,64 @@ const ProfileLayout = ({ children, activeTab, role, user }: ProfileLayoutProps) 
               <Separator className="my-4" />
               
               <nav className="space-y-2">
-                <TabsList className="flex flex-col w-full h-auto gap-2">
-                  <TabsTrigger 
-                    value="profile" 
-                    className={`w-full justify-start py-2 ${activeTab === 'profile' ? 'bg-orange-50 text-orange' : ''}`}
-                  >
-                    Profile
-                  </TabsTrigger>
-                  
-                  {role === 'buyer' && (
-                    <>
-                      <TabsTrigger 
-                        value="favorites" 
-                        className={`w-full justify-start py-2 ${activeTab === 'favorites' ? 'bg-orange-50 text-orange' : ''}`}
-                      >
-                        Saved Properties
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="preferences" 
-                        className={`w-full justify-start py-2 ${activeTab === 'preferences' ? 'bg-orange-50 text-orange' : ''}`}
-                      >
-                        Preferences
-                      </TabsTrigger>
-                    </>
-                  )}
-                  
-                  {role === 'agent' && (
-                    <>
-                      <TabsTrigger 
-                        value="listings" 
-                        className={`w-full justify-start py-2 ${activeTab === 'listings' ? 'bg-orange-50 text-orange' : ''}`}
-                      >
-                        My Listings
-                      </TabsTrigger>
-                      <TabsTrigger 
-                        value="leads" 
-                        className={`w-full justify-start py-2 ${activeTab === 'leads' ? 'bg-orange-50 text-orange' : ''}`}
-                      >
-                        Leads
-                      </TabsTrigger>
-                    </>
-                  )}
-                  
-                  <TabsTrigger 
-                    value="messages" 
-                    className={`w-full justify-start py-2 ${activeTab === 'messages' ? 'bg-orange-50 text-orange' : ''}`}
-                  >
-                    Messages
-                  </TabsTrigger>
-                  
-                  <TabsTrigger 
-                    value="settings" 
-                    className={`w-full justify-start py-2 ${activeTab === 'settings' ? 'bg-orange-50 text-orange' : ''}`}
-                  >
-                    Account Settings
-                  </TabsTrigger>
-                </TabsList>
+                <Tabs value={activeTab} className="w-full">
+                  <TabsList className="flex flex-col w-full h-auto gap-2">
+                    <TabsTrigger 
+                      value="profile" 
+                      className={`w-full justify-start py-2 ${activeTab === 'profile' ? 'bg-orange-50 text-orange' : ''}`}
+                    >
+                      Profile
+                    </TabsTrigger>
+                    
+                    {role === 'buyer' && (
+                      <>
+                        <TabsTrigger 
+                          value="favorites" 
+                          className={`w-full justify-start py-2 ${activeTab === 'favorites' ? 'bg-orange-50 text-orange' : ''}`}
+                        >
+                          Saved Properties
+                        </TabsTrigger>
+                        <TabsTrigger 
+                          value="preferences" 
+                          className={`w-full justify-start py-2 ${activeTab === 'preferences' ? 'bg-orange-50 text-orange' : ''}`}
+                        >
+                          Preferences
+                        </TabsTrigger>
+                      </>
+                    )}
+                    
+                    {role === 'agent' && (
+                      <>
+                        <TabsTrigger 
+                          value="listings" 
+                          className={`w-full justify-start py-2 ${activeTab === 'listings' ? 'bg-orange-50 text-orange' : ''}`}
+                        >
+                          My Listings
+                        </TabsTrigger>
+                        <TabsTrigger 
+                          value="leads" 
+                          className={`w-full justify-start py-2 ${activeTab === 'leads' ? 'bg-orange-50 text-orange' : ''}`}
+                        >
+                          Leads
+                        </TabsTrigger>
+                      </>
+                    )}
+                    
+                    <TabsTrigger 
+                      value="messages" 
+                      className={`w-full justify-start py-2 ${activeTab === 'messages' ? 'bg-orange-50 text-orange' : ''}`}
+                    >
+                      Messages
+                    </TabsTrigger>
+                    
+                    <TabsTrigger 
+                      value="settings" 
+                      className={`w-full justify-start py-2 ${activeTab === 'settings' ? 'bg-orange-50 text-orange' : ''}`}
+                    >
+                      Account Settings
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
               </nav>
             </div>
           </div>
