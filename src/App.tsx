@@ -9,6 +9,7 @@ import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
 import BuyerProfile from "./pages/BuyerProfile";
 import AgentProfile from "./pages/AgentProfile";
+import MessagesPage from "./pages/MessagesPage";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,7 @@ const App = () => (
           <Route path="/login" element={<Index />} />
           <Route path="/register" element={<Index />} />
           <Route path="/add-listing" element={<Index />} />
-          <Route path="/messages" element={<Index />} />
+          <Route path="/messages" element={<MessagesPage />} />
           <Route path="/profile/buyer" element={<BuyerProfile />} />
           <Route path="/profile/agent" element={<AgentProfile />} />
           <Route path="/profile" element={<BuyerProfile />} /> {/* Default to buyer profile */}

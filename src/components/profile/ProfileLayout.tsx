@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserRole } from "@/types/user";
+import { Link } from "react-router-dom";
 
 interface ProfileLayoutProps {
   children: React.ReactNode;
@@ -53,8 +54,9 @@ const ProfileLayout = ({ children, activeTab, role, user }: ProfileLayoutProps) 
                     <TabsTrigger 
                       value="profile" 
                       className={`w-full justify-start py-2 ${activeTab === 'profile' ? 'bg-orange-50 text-orange' : ''}`}
+                      asChild
                     >
-                      Profile
+                      <Link to={`/profile/${role}`}>Profile</Link>
                     </TabsTrigger>
                     
                     {role === 'buyer' && (
@@ -62,14 +64,16 @@ const ProfileLayout = ({ children, activeTab, role, user }: ProfileLayoutProps) 
                         <TabsTrigger 
                           value="favorites" 
                           className={`w-full justify-start py-2 ${activeTab === 'favorites' ? 'bg-orange-50 text-orange' : ''}`}
+                          asChild
                         >
-                          Saved Properties
+                          <Link to="/favorites">Saved Properties</Link>
                         </TabsTrigger>
                         <TabsTrigger 
                           value="preferences" 
                           className={`w-full justify-start py-2 ${activeTab === 'preferences' ? 'bg-orange-50 text-orange' : ''}`}
+                          asChild
                         >
-                          Preferences
+                          <Link to={`/profile/${role}/preferences`}>Preferences</Link>
                         </TabsTrigger>
                       </>
                     )}
@@ -79,14 +83,16 @@ const ProfileLayout = ({ children, activeTab, role, user }: ProfileLayoutProps) 
                         <TabsTrigger 
                           value="listings" 
                           className={`w-full justify-start py-2 ${activeTab === 'listings' ? 'bg-orange-50 text-orange' : ''}`}
+                          asChild
                         >
-                          My Listings
+                          <Link to={`/profile/${role}/listings`}>My Listings</Link>
                         </TabsTrigger>
                         <TabsTrigger 
                           value="leads" 
                           className={`w-full justify-start py-2 ${activeTab === 'leads' ? 'bg-orange-50 text-orange' : ''}`}
+                          asChild
                         >
-                          Leads
+                          <Link to={`/profile/${role}/leads`}>Leads</Link>
                         </TabsTrigger>
                       </>
                     )}
@@ -94,15 +100,17 @@ const ProfileLayout = ({ children, activeTab, role, user }: ProfileLayoutProps) 
                     <TabsTrigger 
                       value="messages" 
                       className={`w-full justify-start py-2 ${activeTab === 'messages' ? 'bg-orange-50 text-orange' : ''}`}
+                      asChild
                     >
-                      Messages
+                      <Link to="/messages">Messages</Link>
                     </TabsTrigger>
                     
                     <TabsTrigger 
                       value="settings" 
                       className={`w-full justify-start py-2 ${activeTab === 'settings' ? 'bg-orange-50 text-orange' : ''}`}
+                      asChild
                     >
-                      Account Settings
+                      <Link to={`/profile/${role}/settings`}>Account Settings</Link>
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
