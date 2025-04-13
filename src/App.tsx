@@ -22,8 +22,10 @@ const App = () => {
       .then((result) => {
         if (result.isConnected) {
           console.log("MongoDB connected successfully!");
-        } else {
+        } else if ("error" in result) {
           console.error("MongoDB connection failed:", result.error);
+        } else {
+          console.log(result.message);
         }
       });
   }, []);

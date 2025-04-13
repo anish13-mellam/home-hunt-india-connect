@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import BuyerProfile from "./pages/BuyerProfile";
 import AgentProfile from "./pages/AgentProfile";
 import MessagesPage from "./pages/MessagesPage";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -30,8 +31,8 @@ const App = () => {
             <Route path="/sell" element={<Index />} />
             <Route path="/agents" element={<Index />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/login" element={<Index />} />
-            <Route path="/register" element={<Index />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<LoginPage />} />
             <Route path="/add-listing" element={<Index />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/profile/buyer" element={<BuyerProfile />} />
