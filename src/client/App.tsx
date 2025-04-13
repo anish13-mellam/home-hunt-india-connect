@@ -13,6 +13,7 @@ import AgentProfile from "./pages/AgentProfile";
 import MessagesPage from "./pages/MessagesPage";
 import LoginPage from "./pages/LoginPage";
 import FeaturedPropertiesPage from "./pages/FeaturedPropertiesPage";
+import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 
 const queryClient = new QueryClient();
 
@@ -42,7 +43,7 @@ const App = () => {
               <Route path="/profile/agent" element={<AgentProfile />} />
               <Route path="/profile" element={<BuyerProfile />} /> {/* Default to buyer profile */}
               <Route path="/favorites" element={<BuyerProfile />} />
-              <Route path="/property/:id" element={<Index />} />
+              <Route path="/property/:id" element={<PropertyDetailsPage />} />
               <Route path="/featured-properties" element={<FeaturedPropertiesPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

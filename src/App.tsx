@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import BuyerProfile from "./pages/BuyerProfile";
 import AgentProfile from "./pages/AgentProfile";
 import MessagesPage from "./pages/MessagesPage";
+import PropertyDetailsPage from "./pages/PropertyDetailsPage";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +38,7 @@ const App = () => {
               <Route path="/profile/agent" element={<AgentProfile />} />
               <Route path="/profile" element={<BuyerProfile />} /> {/* Default to buyer profile */}
               <Route path="/favorites" element={<BuyerProfile />} />
-              <Route path="/property/:id" element={<Index />} />
+              <Route path="/property/:id" element={<PropertyDetailsPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
