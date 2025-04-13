@@ -1,144 +1,189 @@
 
-import { Property as PropertyType } from "@/client/components/properties/PropertyCard";
-import { Property } from "@/server/lib/db";
+import mongoose from 'mongoose';
+import { Property } from '../../types/property';
 
-// Function to get all properties
-export const getAllProperties = async (): Promise<PropertyType[]> => {
-  try {
-    // Fix TypeScript error by using find().lean() without directly chaining exec()
-    const result = await Property.find().lean();
-    return result.map((doc: any) => ({
-      id: doc._id.toString(),
-      title: doc.title,
-      type: doc.type,
-      price: doc.price,
-      priceUnit: doc.priceUnit,
-      location: doc.location,
-      area: doc.area,
-      beds: doc.beds,
-      baths: doc.baths,
-      image: doc.image,
-      forRent: doc.forRent,
-      featured: doc.featured
-    }));
-  } catch (error) {
-    console.error("Error fetching properties:", error);
-    throw error;
-  }
-};
+// Define the schema for the property model
+const propertySchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true },
+  location: {
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zipCode: { type: String, required: true },
+    coordinates: {
+      lat: { type: Number },
+      lng: { type: Number }
+    }
+  },
+  propertyType: { type: String, required: true },
+  bedrooms: { type: Number, required: true },
+  bathrooms: { type: Number, required: true },
+  area: { type: Number, required: true },
+  isFeatured: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
+  status: { type: String, default: 'active' },
+  listingType: { type: String, required: true },
+  yearBuilt: { type: Number },
+  amenities: [{ type: String }],
+  images: [{ type: String }],
+  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
+}, { versionKey: false });
 
-// Function to get featured properties
-export const getFeaturedProperties = async (): Promise<PropertyType[]> => {
-  try {
-    // Fix TypeScript error by using find().lean() without directly chaining exec()
-    const result = await Property.find({ featured: true }).lean();
-    return result.map((doc: any) => ({
-      id: doc._id.toString(),
-      title: doc.title,
-      type: doc.type,
-      price: doc.price,
-      priceUnit: doc.priceUnit,
-      location: doc.location,
-      area: doc.area,
-      beds: doc.beds,
-      baths: doc.baths,
-      image: doc.image,
-      forRent: doc.forRent,
-      featured: doc.featured
-    }));
-  } catch (error) {
-    console.error("Error fetching featured properties:", error);
-    throw error;
-  }
-};
+// Create the property model if it doesn't exist
+let PropertyModel: mongoose.Model<Property>;
 
-// Function to get rental properties
-export const getRentalProperties = async (): Promise<PropertyType[]> => {
+// Function to get properties with search parameters
+export const getProperties = async (
+  page: number = 1,
+  limit: number = 10,
+  searchParams: any = {}
+) => {
   try {
-    // Fix TypeScript error by using find().lean() without directly chaining exec()
-    const result = await Property.find({ forRent: true }).lean();
-    return result.map((doc: any) => ({
-      id: doc._id.toString(),
-      title: doc.title,
-      type: doc.type,
-      price: doc.price,
-      priceUnit: doc.priceUnit,
-      location: doc.location,
-      area: doc.area,
-      beds: doc.beds,
-      baths: doc.baths,
-      image: doc.image,
-      forRent: doc.forRent,
-      featured: doc.featured
-    }));
-  } catch (error) {
-    console.error("Error fetching rental properties:", error);
-    throw error;
-  }
-};
-
-// Function to get property by ID
-export const getPropertyById = async (id: string): Promise<PropertyType | null> => {
-  try {
-    // Fix TypeScript error by using findById().lean() without directly chaining exec()
-    const doc = await Property.findById(id).lean();
-    if (!doc) return null;
+    const skip = (page - 1) * limit;
+    
+    // Build query based on search parameters
+    const query: any = {};
+    
+    if (searchParams.propertyType) {
+      query.propertyType = searchParams.propertyType;
+    }
+    
+    if (searchParams.city) {
+      query['location.city'] = new RegExp(searchParams.city, 'i');
+    }
+    
+    if (searchParams.minPrice || searchParams.maxPrice) {
+      query.price = {};
+      if (searchParams.minPrice) query.price.$gte = Number(searchParams.minPrice);
+      if (searchParams.maxPrice) query.price.$lte = Number(searchParams.maxPrice);
+    }
+    
+    if (searchParams.bedrooms) {
+      query.bedrooms = { $gte: Number(searchParams.bedrooms) };
+    }
+    
+    if (searchParams.bathrooms) {
+      query.bathrooms = { $gte: Number(searchParams.bathrooms) };
+    }
+    
+    if (searchParams.listingType) {
+      query.listingType = searchParams.listingType;
+    }
+    
+    // Get property model or create it
+    try {
+      PropertyModel = mongoose.model('Property');
+    } catch (error) {
+      PropertyModel = mongoose.model<Property>('Property', propertySchema);
+    }
+    
+    // Execute query with pagination
+    const properties = await PropertyModel.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+    
+    const totalProperties = await PropertyModel.countDocuments(query);
     
     return {
-      id: doc._id.toString(),
-      title: doc.title,
-      type: doc.type,
-      price: doc.price,
-      priceUnit: doc.priceUnit,
-      location: doc.location,
-      area: doc.area,
-      beds: doc.beds || undefined, // Fix property not existing error
-      baths: doc.baths || undefined, // Fix property not existing error
-      image: doc.image,
-      forRent: doc.forRent,
-      featured: doc.featured
+      properties,
+      pagination: {
+        total: totalProperties,
+        page,
+        limit,
+        pages: Math.ceil(totalProperties / limit)
+      }
     };
   } catch (error) {
-    console.error(`Error fetching property ${id}:`, error);
+    console.error('Error getting properties:', error);
+    throw error;
+  }
+};
+
+// Function to get a single property by ID
+export const getPropertyById = async (id: string) => {
+  try {
+    // Get property model or create it
+    try {
+      PropertyModel = mongoose.model('Property');
+    } catch (error) {
+      PropertyModel = mongoose.model<Property>('Property', propertySchema);
+    }
+    
+    const property = await PropertyModel.findById(id);
+    return property;
+  } catch (error) {
+    console.error(`Error getting property with ID ${id}:`, error);
     throw error;
   }
 };
 
 // Function to create a new property
-export const createProperty = async (propertyData: Omit<PropertyType, "id">): Promise<PropertyType> => {
+export const createProperty = async (propertyData: Omit<Property, "id">) => {
   try {
-    const newProperty = new Property({
-      title: propertyData.title,
-      type: propertyData.type,
-      price: propertyData.price,
-      priceUnit: propertyData.priceUnit,
-      location: propertyData.location,
-      area: propertyData.area,
-      beds: propertyData.beds, // This is now valid since we defined it in the schema
-      baths: propertyData.baths, // This is now valid since we defined it in the schema
-      image: propertyData.image,
-      forRent: propertyData.forRent,
-      featured: propertyData.featured
+    // Get property model or create it
+    try {
+      PropertyModel = mongoose.model('Property');
+    } catch (error) {
+      PropertyModel = mongoose.model<Property>('Property', propertySchema);
+    }
+    
+    const property = new PropertyModel({
+      ...propertyData,
+      bedrooms: propertyData.bedrooms,
+      bathrooms: propertyData.bathrooms,
+      isFeatured: propertyData.isFeatured || false,
     });
     
-    const saved = await newProperty.save();
-    
-    return {
-      id: saved._id.toString(),
-      title: saved.title,
-      type: saved.type,
-      price: saved.price,
-      priceUnit: saved.priceUnit,
-      location: saved.location,
-      area: saved.area,
-      beds: saved.beds,
-      baths: saved.baths,
-      image: saved.image,
-      forRent: saved.forRent,
-      featured: saved.featured
-    };
+    await property.save();
+    return property;
   } catch (error) {
-    console.error("Error creating property:", error);
+    console.error('Error creating property:', error);
+    throw error;
+  }
+};
+
+// Function to update a property
+export const updateProperty = async (id: string, propertyData: Partial<Property>) => {
+  try {
+    // Get property model or create it
+    try {
+      PropertyModel = mongoose.model('Property');
+    } catch (error) {
+      PropertyModel = mongoose.model<Property>('Property', propertySchema);
+    }
+    
+    const property = await PropertyModel.findByIdAndUpdate(
+      id,
+      { ...propertyData, updatedAt: new Date() },
+      { new: true }
+    );
+    
+    return property;
+  } catch (error) {
+    console.error(`Error updating property with ID ${id}:`, error);
+    throw error;
+  }
+};
+
+// Function to delete a property
+export const deleteProperty = async (id: string) => {
+  try {
+    // Get property model or create it
+    try {
+      PropertyModel = mongoose.model('Property');
+    } catch (error) {
+      PropertyModel = mongoose.model<Property>('Property', propertySchema);
+    }
+    
+    await PropertyModel.findByIdAndDelete(id);
+    return { success: true };
+  } catch (error) {
+    console.error(`Error deleting property with ID ${id}:`, error);
     throw error;
   }
 };

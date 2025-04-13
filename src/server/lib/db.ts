@@ -1,72 +1,57 @@
 
 import mongoose from 'mongoose';
 
-export interface DbConfig {
-  uri: string;
-  dbName: string;
-}
+const MONGODB_URI = typeof process !== 'undefined' && process.env && process.env.MONGODB_URI 
+  ? process.env.MONGODB_URI 
+  : 'mongodb://localhost:27017/homehunt';
 
-// Safely access process.env for server-side environment
-export const dbConfig: DbConfig = {
-  uri: typeof process !== 'undefined' && process.env.MONGODB_URI || "mongodb://localhost:27017",
-  dbName: "homehunt_india"
-};
+// Cached connection
+let cachedConnection: typeof mongoose | null = null;
 
-export const connectToDatabase = async () => {
+export const initDatabase = async () => {
+  // If already connected, return the existing connection
+  if (cachedConnection) {
+    return { isConnected: true, mongoose: cachedConnection };
+  }
+
   try {
-    console.log("Connecting to MongoDB database...");
-    
-    if (!mongoose.connection.readyState) {
-      await mongoose.connect(dbConfig.uri, {
-        dbName: dbConfig.dbName
-      });
+    // Check if running in browser environment
+    if (typeof window !== 'undefined') {
+      return { 
+        isConnected: false, 
+        message: "Database connection not available in browser environment" 
+      };
     }
-    
-    console.log("Connected to MongoDB database successfully");
-    return {
-      isConnected: true,
-      mongoose
-    };
+
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    } as mongoose.ConnectOptions;
+
+    // Connect to MongoDB
+    const connection = await mongoose.connect(MONGODB_URI, options);
+
+    // Cache the connection
+    cachedConnection = connection;
+
+    return { isConnected: true, mongoose: connection };
   } catch (error) {
-    console.error("Failed to connect to MongoDB:", error);
-    return {
-      isConnected: false,
-      error
-    };
+    console.error('MongoDB connection failed:', error);
+    return { isConnected: false, error };
   }
 };
 
-export const collections = {
-  properties: "properties",
-  users: "users",
-  messages: "messages",
-  agents: "agents"
-};
+export const closeDatabase = async () => {
+  if (!cachedConnection) {
+    return { isDisconnected: true, message: "No active connection to close" };
+  }
 
-// Mongoose schemas
-const PropertySchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  type: { type: String, required: true, enum: ['apartment', 'house', 'villa', 'plot'] },
-  price: { type: Number, required: true },
-  priceUnit: { type: String, required: true, enum: ['lakh', 'crore'] },
-  location: { type: String, required: true },
-  area: { type: Number, required: true },
-  beds: { type: Number },
-  baths: { type: Number },
-  image: { type: String, required: true },
-  forRent: { type: Boolean, default: false },
-  featured: { type: Boolean, default: false },
-  description: { type: String },
-  amenities: [String],
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-});
-
-// Create and export models if they don't exist
-export const Property = mongoose.models.Property || mongoose.model('Property', PropertySchema, collections.properties);
-
-// Initialize database connection
-export const initDatabase = async () => {
-  return await connectToDatabase();
+  try {
+    await mongoose.disconnect();
+    cachedConnection = null;
+    return { isDisconnected: true };
+  } catch (error) {
+    console.error('Error closing MongoDB connection:', error);
+    return { isDisconnected: false, error };
+  }
 };
