@@ -1,11 +1,11 @@
 
 import React from "react";
-import Layout from "../layout/Layout";
+import Layout from "@/client/components/layout/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui/tabs";
 
 interface ProfileLayoutProps {
   children: React.ReactNode;
-  userType?: string; // Add userType prop to fix the TS error
+  userType?: string; 
 }
 
 const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children, userType = "buyer" }) => {

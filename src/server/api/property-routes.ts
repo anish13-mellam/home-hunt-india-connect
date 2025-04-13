@@ -1,43 +1,23 @@
 
 import express from 'express';
-import { getAllProperties, getFeaturedProperties, getRentalProperties, getPropertyById, createProperty } from '../models/property';
+import { getProperties } from '../models/property';
 
 const router = express.Router();
 
 // Get all properties
 router.get('/properties', async (req, res) => {
   try {
-    const properties = await getAllProperties();
+    const properties = await getProperties();
     res.json(properties);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch properties' });
   }
 });
 
-// Get featured properties
-router.get('/properties/featured', async (req, res) => {
-  try {
-    const properties = await getFeaturedProperties();
-    res.json(properties);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch featured properties' });
-  }
-});
-
-// Get rental properties
-router.get('/properties/rent', async (req, res) => {
-  try {
-    const properties = await getRentalProperties();
-    res.json(properties);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch rental properties' });
-  }
-});
-
-// Get property by ID
+// Get a single property by ID
 router.get('/properties/:id', async (req, res) => {
   try {
-    const property = await getPropertyById(req.params.id);
+    const property = await getProperties({ _id: req.params.id });
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
@@ -47,13 +27,24 @@ router.get('/properties/:id', async (req, res) => {
   }
 });
 
-// Create new property
-router.post('/properties', async (req, res) => {
+// Get featured properties
+router.get('/properties/featured', async (req, res) => {
   try {
-    const newProperty = await createProperty(req.body);
-    res.status(201).json(newProperty);
+    const featuredProperties = await getProperties({ isFeatured: true });
+    res.json(featuredProperties);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create property' });
+    res.status(500).json({ error: 'Failed to fetch featured properties' });
+  }
+});
+
+// Get properties by type (rent/sale)
+router.get('/properties/type/:listingType', async (req, res) => {
+  try {
+    const { listingType } = req.params;
+    const properties = await getProperties({ listingType });
+    res.json(properties);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch properties by type' });
   }
 });
 
