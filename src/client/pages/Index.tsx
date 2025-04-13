@@ -16,6 +16,7 @@ const Index = () => {
         title="Featured Properties for Sale"
         subtitle="Handpicked premium properties across India"
         properties={featuredProperties}
+        viewAllLink="/featured-properties"
       />
       
       <PopularCities />
