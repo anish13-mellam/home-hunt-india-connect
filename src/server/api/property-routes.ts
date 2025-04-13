@@ -17,7 +17,8 @@ router.get('/properties', async (req, res) => {
 // Get a single property by ID
 router.get('/properties/:id', async (req, res) => {
   try {
-    const property = await getProperties({ _id: req.params.id });
+    // Changed from { _id: req.params.id } to just req.params.id
+    const property = await getProperties(req.params.id);
     if (!property) {
       return res.status(404).json({ error: 'Property not found' });
     }
@@ -30,7 +31,8 @@ router.get('/properties/:id', async (req, res) => {
 // Get featured properties
 router.get('/properties/featured', async (req, res) => {
   try {
-    const featuredProperties = await getProperties({ isFeatured: true });
+    // Changed from { isFeatured: true } to just "featured"
+    const featuredProperties = await getProperties("featured");
     res.json(featuredProperties);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch featured properties' });
@@ -41,7 +43,8 @@ router.get('/properties/featured', async (req, res) => {
 router.get('/properties/type/:listingType', async (req, res) => {
   try {
     const { listingType } = req.params;
-    const properties = await getProperties({ listingType });
+    // Changed from { listingType } to just listingType
+    const properties = await getProperties(listingType);
     res.json(properties);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch properties by type' });
