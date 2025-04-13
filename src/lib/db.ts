@@ -6,8 +6,9 @@ export interface DbConfig {
   dbName: string;
 }
 
+// Use window.__ENV__ for browser environment or default values
 export const dbConfig: DbConfig = {
-  uri: process.env.MONGODB_URI || "mongodb://localhost:27017",
+  uri: typeof window !== 'undefined' && (window as any).__ENV__?.MONGODB_URI || "mongodb://localhost:27017",
   dbName: "homehunt_india"
 };
 
@@ -67,5 +68,9 @@ export const Property = mongoose.models.Property || mongoose.model('Property', P
 
 // Initialize database connection
 export const initDatabase = async () => {
-  return await connectToDatabase();
+  // Only attempt to connect in server environment
+  if (typeof window === 'undefined') {
+    return await connectToDatabase();
+  }
+  return { isConnected: false, message: "Database connections should be initialized on the server" };
 };

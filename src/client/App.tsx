@@ -4,8 +4,6 @@ import { Toaster as Sonner } from "@/client/components/ui/sonner";
 import { TooltipProvider } from "@/client/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
-import { initDatabase } from "@/server/lib/db";
 import Index from "./pages/Index";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
@@ -16,17 +14,8 @@ import MessagesPage from "./pages/MessagesPage";
 const queryClient = new QueryClient();
 
 const App = () => {
-  useEffect(() => {
-    // Initialize database connection
-    initDatabase()
-      .then((result) => {
-        if (result.isConnected) {
-          console.log("MongoDB connected successfully!");
-        } else {
-          console.error("MongoDB connection failed:", result.error);
-        }
-      });
-  }, []);
+  // Remove database initialization from client-side
+  // This avoids the "process is not defined" error
 
   return (
     <QueryClientProvider client={queryClient}>

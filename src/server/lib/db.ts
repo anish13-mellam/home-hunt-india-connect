@@ -6,8 +6,9 @@ export interface DbConfig {
   dbName: string;
 }
 
+// Safely access process.env for server-side environment
 export const dbConfig: DbConfig = {
-  uri: process.env.MONGODB_URI || "mongodb://localhost:27017",
+  uri: typeof process !== 'undefined' && process.env.MONGODB_URI || "mongodb://localhost:27017",
   dbName: "homehunt_india"
 };
 

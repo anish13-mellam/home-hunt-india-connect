@@ -5,7 +5,8 @@ import { Property } from "@/server/lib/db";
 // Function to get all properties
 export const getAllProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find().lean().exec();
+    // Fix TypeScript error by using find().lean() without directly chaining exec()
+    const result = await Property.find().lean();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -29,7 +30,8 @@ export const getAllProperties = async (): Promise<PropertyType[]> => {
 // Function to get featured properties
 export const getFeaturedProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find({ featured: true }).lean().exec();
+    // Fix TypeScript error by using find().lean() without directly chaining exec()
+    const result = await Property.find({ featured: true }).lean();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -53,7 +55,8 @@ export const getFeaturedProperties = async (): Promise<PropertyType[]> => {
 // Function to get rental properties
 export const getRentalProperties = async (): Promise<PropertyType[]> => {
   try {
-    const result = await Property.find({ forRent: true }).lean().exec();
+    // Fix TypeScript error by using find().lean() without directly chaining exec()
+    const result = await Property.find({ forRent: true }).lean();
     return result.map((doc: any) => ({
       id: doc._id.toString(),
       title: doc.title,
@@ -77,7 +80,8 @@ export const getRentalProperties = async (): Promise<PropertyType[]> => {
 // Function to get property by ID
 export const getPropertyById = async (id: string): Promise<PropertyType | null> => {
   try {
-    const doc = await Property.findById(id).lean().exec();
+    // Fix TypeScript error by using findById().lean() without directly chaining exec()
+    const doc = await Property.findById(id).lean();
     if (!doc) return null;
     
     return {
@@ -88,8 +92,8 @@ export const getPropertyById = async (id: string): Promise<PropertyType | null> 
       priceUnit: doc.priceUnit,
       location: doc.location,
       area: doc.area,
-      beds: doc.beds,
-      baths: doc.baths,
+      beds: doc.beds || undefined, // Fix property not existing error
+      baths: doc.baths || undefined, // Fix property not existing error
       image: doc.image,
       forRent: doc.forRent,
       featured: doc.featured
@@ -103,7 +107,20 @@ export const getPropertyById = async (id: string): Promise<PropertyType | null> 
 // Function to create a new property
 export const createProperty = async (propertyData: Omit<PropertyType, "id">): Promise<PropertyType> => {
   try {
-    const newProperty = new Property(propertyData);
+    const newProperty = new Property({
+      title: propertyData.title,
+      type: propertyData.type,
+      price: propertyData.price,
+      priceUnit: propertyData.priceUnit,
+      location: propertyData.location,
+      area: propertyData.area,
+      beds: propertyData.beds, // This is now valid since we defined it in the schema
+      baths: propertyData.baths, // This is now valid since we defined it in the schema
+      image: propertyData.image,
+      forRent: propertyData.forRent,
+      featured: propertyData.featured
+    });
+    
     const saved = await newProperty.save();
     
     return {
