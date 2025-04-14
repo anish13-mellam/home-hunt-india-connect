@@ -80,7 +80,7 @@ const PropertyDetailsPage = () => {
     );
   }
   
-  // Format price based on property data
+  // Format price based on property data - handling optional properties safely
   const formattedPrice = property.forRent && property.rentAmount && property.rentPeriod
     ? `₹${property.rentAmount}/${property.rentPeriod}`
     : property.priceUnit === "lakh"
@@ -174,28 +174,28 @@ const PropertyDetailsPage = () => {
                   <p className="text-muted-foreground text-sm">Bedrooms</p>
                   <div className="flex items-center gap-2 mt-1">
                     <BedDouble className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.bedrooms}</span>
+                    <span className="font-medium">{property.bedrooms || property.beds || 0}</span>
                   </div>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Bathrooms</p>
                   <div className="flex items-center gap-2 mt-1">
                     <Bath className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.bathrooms}</span>
+                    <span className="font-medium">{property.bathrooms || property.baths || 0}</span>
                   </div>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Area</p>
                   <div className="flex items-center gap-2 mt-1">
                     <Maximize2 className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.area} {property.areaUnit}</span>
+                    <span className="font-medium">{property.area} {property.areaUnit || 'sqft'}</span>
                   </div>
                 </div>
               </div>
               <Separator className="my-4" />
               <h3 className="text-xl font-semibold mb-3">Description</h3>
               <p className="text-muted-foreground">
-                This beautiful {property.bedrooms} bedroom {property.type} in {property.location} offers modern living with elegant finishes. 
+                This beautiful {property.bedrooms || property.beds || 0} bedroom {property.type} in {property.location} offers modern living with elegant finishes. 
                 The property boasts spacious rooms, ample natural light, and high-quality fixtures throughout. 
                 Located in a prime area with easy access to amenities, schools, and transportation.
               </p>
