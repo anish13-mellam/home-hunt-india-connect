@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
@@ -134,8 +135,8 @@ const PropertyDetailsPage = () => {
   ];
 
   // Access bedrooms and bathrooms safely, using either property naming convention
-  const bedroomsValue = property.bedrooms || property.beds || 0;
-  const bathroomsValue = property.bathrooms || property.baths || 0;
+  const bedroomsValue = property.bedrooms || (property as any).beds || 0;
+  const bathroomsValue = property.bathrooms || (property as any).baths || 0;
   
   return (
     <Layout>
