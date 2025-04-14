@@ -17,8 +17,11 @@ export interface Property {
   location: string;
   price: number;
   priceUnit: "lakh" | "crore";
-  bedrooms: number;
-  bathrooms: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  // Add these properties to support the existing mock data
+  beds?: number;
+  baths?: number;
   area: number;
   areaUnit: "sqft";
   type: "apartment" | "house" | "villa" | "plot";
@@ -28,6 +31,8 @@ export interface Property {
   image: string;
   isFeatured?: boolean;
   isNew?: boolean;
+  // Additional properties that might be used in the codebase
+  featured?: boolean;
 }
 
 interface PropertyCardProps {

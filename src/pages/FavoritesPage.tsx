@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/layout/Layout";
 import PropertyCard from "@/components/properties/PropertyCard";
-import { featuredProperties } from "@/data/mockData";
+import { featuredProperties, rentalProperties } from "@/data/mockData";
 import { Property } from "@/components/properties/PropertyCard";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const FavoritesPage = () => {
   const [favoriteProperties, setFavoriteProperties] = useState<Property[]>([]);
@@ -14,7 +16,9 @@ const FavoritesPage = () => {
     const loadFavorites = () => {
       try {
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-        const properties = featuredProperties.filter(property => 
+        // Check both featuredProperties and rentalProperties
+        const allProperties = [...featuredProperties, ...rentalProperties];
+        const properties = allProperties.filter(property => 
           favorites.includes(property.id)
         );
         setFavoriteProperties(properties);
@@ -43,6 +47,7 @@ const FavoritesPage = () => {
               <PropertyCard 
                 key={property.id} 
                 property={property}
+                isFavorite={true}
               />
             ))}
           </div>
@@ -52,6 +57,9 @@ const FavoritesPage = () => {
             <p className="text-muted-foreground mb-8">
               You haven't saved any properties to your favorites list yet.
             </p>
+            <Link to="/featured-properties">
+              <Button>Browse Properties</Button>
+            </Link>
           </div>
         )}
       </div>

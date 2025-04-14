@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
@@ -75,7 +76,7 @@ const PropertyDetailsPage = () => {
     );
   }
 
-  // Format price display - fixing the TypeScript errors
+  // Format price display - fixing the TypeScript errors by checking for both property naming conventions
   const formattedPrice = property.forRent && 'rentAmount' in property && 'rentPeriod' in property
     ? `₹${property.rentAmount?.toLocaleString()}/${property.rentPeriod}`
     : property.priceUnit === "lakh"
@@ -133,6 +134,9 @@ const PropertyDetailsPage = () => {
     "https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg",
   ];
 
+  // Access bedrooms and bathrooms safely, using either property naming convention
+  const bedroomsValue = property.bedrooms || property.beds || 0;
+  const bathroomsValue = property.bathrooms || property.baths || 0;
   
   return (
     <Layout>
@@ -212,10 +216,10 @@ const PropertyDetailsPage = () => {
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-4">Overview</h2>
               <p className="text-muted-foreground">
-                This beautiful {property.bedrooms} bedroom {property.type} is located in the heart of {property.location}. 
+                This beautiful {bedroomsValue} bedroom {property.type} is located in the heart of {property.location}. 
                 With a total area of {property.area} {property.areaUnit}, it offers spacious living spaces, modern amenities,
                 and a prime location with excellent connectivity to major landmarks and transportation hubs.
-                The property features {property.bathrooms} bathrooms, ample natural lighting, and high-quality finishes throughout.
+                The property features {bathroomsValue} bathrooms, ample natural lighting, and high-quality finishes throughout.
               </p>
             </div>
 
@@ -225,11 +229,11 @@ const PropertyDetailsPage = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div className="flex items-center gap-2">
                   <BedDouble className="h-5 w-5 text-muted-foreground" />
-                  <span>{property.bedrooms} Bedrooms</span>
+                  <span>{bedroomsValue} Bedrooms</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Bath className="h-5 w-5 text-muted-foreground" />
-                  <span>{property.bathrooms} Bathrooms</span>
+                  <span>{bathroomsValue} Bathrooms</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Maximize2 className="h-5 w-5 text-muted-foreground" />
