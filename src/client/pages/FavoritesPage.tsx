@@ -30,11 +30,6 @@ const FavoritesPage = () => {
     loadFavorites();
   }, []);
 
-  // Handle favorite toggle to update list in real-time
-  const handleFavoriteToggle = (id: string) => {
-    setFavoriteProperties(prev => prev.filter(property => property.id !== id));
-  };
-
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -57,8 +52,6 @@ const FavoritesPage = () => {
               <PropertyCard
                 key={property.id}
                 property={property}
-                onFavoriteToggle={handleFavoriteToggle}
-                isFavorite={true}
               />
             ))}
           </div>

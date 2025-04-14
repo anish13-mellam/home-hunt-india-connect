@@ -51,6 +51,31 @@ export const featuredProperties: Property[] = [
     beds: 3,
     baths: 3,
     image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80"
+  },
+  {
+    id: "9",
+    title: "Modern 3BHK Apartment in Gachibowli",
+    type: "apartment",
+    price: 1.2,
+    priceUnit: "crore",
+    location: "Gachibowli, Hyderabad",
+    area: 1850,
+    beds: 3,
+    baths: 3,
+    image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80"
+  },
+  {
+    id: "10",
+    title: "Luxury Villa in Banjara Hills",
+    type: "villa",
+    price: 4.5,
+    priceUnit: "crore",
+    location: "Banjara Hills, Hyderabad",
+    area: 4200,
+    beds: 5,
+    baths: 5,
+    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
+    featured: true
   }
 ];
 
@@ -107,6 +132,33 @@ export const rentalProperties: Property[] = [
     baths: 2,
     image: "https://images.unsplash.com/photo-1605146768851-eda79da39897?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true
+  },
+  {
+    id: "11",
+    title: "Furnished 3BHK Apartment for Rent",
+    type: "apartment",
+    price: 45000,
+    priceUnit: "lakh", // We'll handle this differently in the UI
+    location: "Madhapur, Hyderabad",
+    area: 1800,
+    beds: 3,
+    baths: 3,
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
+    forRent: true
+  },
+  {
+    id: "12",
+    title: "Luxury 4BHK Villa for Rent",
+    type: "villa",
+    price: 85000,
+    priceUnit: "lakh", // We'll handle this differently in the UI
+    location: "Hitec City, Hyderabad",
+    area: 3500,
+    beds: 4,
+    baths: 4,
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
+    forRent: true,
+    featured: true
   }
 ];
 
