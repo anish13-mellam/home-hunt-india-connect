@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
@@ -76,8 +75,8 @@ const PropertyDetailsPage = () => {
     );
   }
 
-  // Format price display
-  const formattedPrice = property.forRent && property.rentAmount && property.rentPeriod
+  // Format price display - fixing the TypeScript errors
+  const formattedPrice = property.forRent && 'rentAmount' in property && 'rentPeriod' in property
     ? `₹${property.rentAmount?.toLocaleString()}/${property.rentPeriod}`
     : property.priceUnit === "lakh"
       ? `₹${property.price} Lakh`
@@ -134,6 +133,7 @@ const PropertyDetailsPage = () => {
     "https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg",
   ];
 
+  
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
