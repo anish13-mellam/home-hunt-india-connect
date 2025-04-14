@@ -38,9 +38,9 @@ const PropertyDetailsPage = () => {
 
   // Load favorites from localStorage
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-    if (property && favorites.includes(property.id)) {
-      setIsFavorite(true);
+    if (property) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      setIsFavorite(favorites.includes(property.id));
     }
   }, [property]);
 

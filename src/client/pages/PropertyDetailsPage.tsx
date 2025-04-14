@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
 import { featuredProperties, rentalProperties } from "@/client/data/mockData";
@@ -32,15 +32,25 @@ import {
 } from "lucide-react";
 import { mockAgentProfile } from "@/client/data/mockUsers";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
+import { useToast } from "@/client/hooks/use-toast";
 
 const PropertyDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
+  const { toast } = useToast();
+  const [isFavorite, setIsFavorite] = useState(false);
   
   // Find property from both featured and rental properties
   const property = [...featuredProperties, ...rentalProperties].find(
     (p) => p.id === id
   );
+
+  // Load favorites from localStorage
+  useEffect(() => {
+    if (property) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      setIsFavorite(favorites.includes(property.id));
+    }
+  }, [property]);
 
   if (!property) {
     return (
@@ -67,7 +77,7 @@ const PropertyDetailsPage = () => {
   }
 
   // Format price display
-  const formattedPrice = property.forRent
+  const formattedPrice = property.forRent && property.rentAmount && property.rentPeriod
     ? `₹${property.rentAmount?.toLocaleString()}/${property.rentPeriod}`
     : property.priceUnit === "lakh"
       ? `₹${property.price} Lakh`
@@ -80,16 +90,40 @@ const PropertyDetailsPage = () => {
         text: `Check out this property: ${property.title}`,
         url: window.location.href,
       }).catch(err => {
-        toast.error("Failed to share");
+        toast({
+          title: "Failed to share",
+          description: "Could not share the property"
+        });
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      toast.success("Link copied to clipboard");
+      toast({
+        title: "Link copied",
+        description: "Property link copied to clipboard"
+      });
     }
   };
 
   const handleSaveProperty = () => {
-    toast.success("Property saved to favorites");
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    let updatedFavorites;
+    
+    if (isFavorite) {
+      updatedFavorites = favorites.filter((favId: string) => favId !== property.id);
+      toast({
+        title: "Removed from favorites",
+        description: "Property has been removed from your favorites"
+      });
+    } else {
+      updatedFavorites = [...favorites, property.id];
+      toast({
+        title: "Added to favorites",
+        description: "Property has been added to your favorites"
+      });
+    }
+    
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    setIsFavorite(!isFavorite);
   };
 
   // Mock images for the property carousel
@@ -114,9 +148,13 @@ const PropertyDetailsPage = () => {
               <Share2 className="h-4 w-4 mr-2" />
               Share
             </Button>
-            <Button variant="outline" onClick={handleSaveProperty} className="flex items-center">
-              <Heart className="h-4 w-4 mr-2" />
-              Save
+            <Button 
+              variant="outline" 
+              onClick={handleSaveProperty} 
+              className={`flex items-center ${isFavorite ? "text-red-500" : ""}`}
+            >
+              <Heart className={`h-4 w-4 mr-2 ${isFavorite ? "fill-current" : ""}`} />
+              {isFavorite ? "Saved" : "Save"}
             </Button>
           </div>
         </div>
