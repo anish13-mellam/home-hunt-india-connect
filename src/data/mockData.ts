@@ -12,6 +12,7 @@ export const featuredProperties: Property[] = [
     area: 1450,
     beds: 3,
     baths: 2,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     featured: true
   },
@@ -25,6 +26,7 @@ export const featuredProperties: Property[] = [
     area: 1050,
     beds: 2,
     baths: 2,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1622866306950-81d17097d458?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80"
   },
   {
@@ -37,6 +39,7 @@ export const featuredProperties: Property[] = [
     area: 3200,
     beds: 4,
     baths: 4,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     featured: true
   },
@@ -50,6 +53,7 @@ export const featuredProperties: Property[] = [
     area: 2100,
     beds: 3,
     baths: 3,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80"
   },
   {
@@ -62,6 +66,7 @@ export const featuredProperties: Property[] = [
     area: 1850,
     beds: 3,
     baths: 3,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80"
   },
   {
@@ -74,6 +79,7 @@ export const featuredProperties: Property[] = [
     area: 4200,
     beds: 5,
     baths: 5,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     featured: true
   }
@@ -90,6 +96,7 @@ export const rentalProperties: Property[] = [
     area: 1120,
     beds: 2,
     baths: 2,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true
   },
@@ -103,6 +110,7 @@ export const rentalProperties: Property[] = [
     area: 650,
     beds: 1,
     baths: 1,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1594484208280-efa00f96fc21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true
   },
@@ -116,6 +124,7 @@ export const rentalProperties: Property[] = [
     area: 1800,
     beds: 3,
     baths: 3,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true,
     featured: true
@@ -130,6 +139,7 @@ export const rentalProperties: Property[] = [
     area: 1400,
     beds: 2,
     baths: 2,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1605146768851-eda79da39897?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true
   },
@@ -143,6 +153,7 @@ export const rentalProperties: Property[] = [
     area: 1800,
     beds: 3,
     baths: 3,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true
   },
@@ -156,6 +167,7 @@ export const rentalProperties: Property[] = [
     area: 3500,
     beds: 4,
     baths: 4,
+    areaUnit: "sqft",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     forRent: true,
     featured: true

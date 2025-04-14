@@ -80,6 +80,10 @@ const PropertyDetailsPage = () => {
     );
   }
   
+  // Get bedrooms and bathrooms values, accounting for different property naming conventions
+  const bedroomsValue = property.bedrooms || property.beds || 0;
+  const bathroomsValue = property.bathrooms || property.baths || 0;
+  
   // Format price based on property data - handling optional properties safely
   const formattedPrice = property.forRent && property.rentAmount && property.rentPeriod
     ? `₹${property.rentAmount}/${property.rentPeriod}`
@@ -174,28 +178,28 @@ const PropertyDetailsPage = () => {
                   <p className="text-muted-foreground text-sm">Bedrooms</p>
                   <div className="flex items-center gap-2 mt-1">
                     <BedDouble className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.bedrooms || property.beds || 0}</span>
+                    <span className="font-medium">{bedroomsValue}</span>
                   </div>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Bathrooms</p>
                   <div className="flex items-center gap-2 mt-1">
                     <Bath className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.bathrooms || property.baths || 0}</span>
+                    <span className="font-medium">{bathroomsValue}</span>
                   </div>
                 </div>
                 <div>
                   <p className="text-muted-foreground text-sm">Area</p>
                   <div className="flex items-center gap-2 mt-1">
                     <Maximize2 className="h-5 w-5 text-primary" />
-                    <span className="font-medium">{property.area} {property.areaUnit || 'sqft'}</span>
+                    <span className="font-medium">{property.area} {property.areaUnit}</span>
                   </div>
                 </div>
               </div>
               <Separator className="my-4" />
               <h3 className="text-xl font-semibold mb-3">Description</h3>
               <p className="text-muted-foreground">
-                This beautiful {property.bedrooms || property.beds || 0} bedroom {property.type} in {property.location} offers modern living with elegant finishes. 
+                This beautiful {bedroomsValue} bedroom {property.type} in {property.location} offers modern living with elegant finishes. 
                 The property boasts spacious rooms, ample natural light, and high-quality fixtures throughout. 
                 Located in a prime area with easy access to amenities, schools, and transportation.
               </p>

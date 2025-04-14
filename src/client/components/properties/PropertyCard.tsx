@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -20,6 +19,9 @@ export interface Property {
   priceUnit: "lakh" | "crore";
   bedrooms: number;
   bathrooms: number;
+  // Add optional properties to support both naming patterns
+  beds?: number;
+  baths?: number;
   area: number;
   areaUnit: "sqft";
   type: "apartment" | "house" | "villa" | "plot";
@@ -29,6 +31,7 @@ export interface Property {
   image: string;
   isFeatured?: boolean;
   isNew?: boolean;
+  featured?: boolean;
 }
 
 interface PropertyCardProps {

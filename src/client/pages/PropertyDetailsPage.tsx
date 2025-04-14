@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
