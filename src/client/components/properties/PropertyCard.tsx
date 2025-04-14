@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { 
   Card, 
@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/client/components/ui/badge";
 import { Heart } from "lucide-react";
 import { Button } from "@/client/components/ui/button";
+import { useToast } from "@/client/hooks/use-toast";
 
 export interface Property {
   id: string;
@@ -36,12 +37,52 @@ interface PropertyCardProps {
   isFavorite?: boolean;
 }
 
-const PropertyCard = ({ property, onFavoriteToggle, isFavorite = false }: PropertyCardProps) => {
-  const formattedPrice = property.forRent
+const PropertyCard = ({ property, onFavoriteToggle, isFavorite: propIsFavorite }: PropertyCardProps) => {
+  const { toast } = useToast();
+  const [isFavorite, setIsFavorite] = useState(propIsFavorite || false);
+  
+  const formattedPrice = property.forRent && property.rentAmount && property.rentPeriod
     ? `₹${property.rentAmount?.toLocaleString()}/${property.rentPeriod}`
     : property.priceUnit === "lakh"
       ? `₹${property.price} Lakh`
       : `₹${property.price} Cr`;
+  
+  // Load favorites from localStorage on component mount
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    if (favorites.includes(property.id)) {
+      setIsFavorite(true);
+    }
+  }, [property.id]);
+  
+  const handleFavoriteToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    let updatedFavorites;
+    
+    if (isFavorite) {
+      updatedFavorites = favorites.filter((id: string) => id !== property.id);
+      toast({
+        title: "Removed from favorites",
+        description: "Property has been removed from your favorites"
+      });
+    } else {
+      updatedFavorites = [...favorites, property.id];
+      toast({
+        title: "Added to favorites",
+        description: "Property has been added to your favorites"
+      });
+    }
+    
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    setIsFavorite(!isFavorite);
+    
+    if (onFavoriteToggle) {
+      onFavoriteToggle(property.id);
+    }
+  };
       
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md">
@@ -75,7 +116,7 @@ const PropertyCard = ({ property, onFavoriteToggle, isFavorite = false }: Proper
           className={`absolute top-4 right-4 rounded-full bg-white/80 hover:bg-white ${
             isFavorite ? "text-red-500" : "text-gray-600"
           }`}
-          onClick={() => onFavoriteToggle && onFavoriteToggle(property.id)}
+          onClick={handleFavoriteToggle}
         >
           <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""}`} />
         </Button>
