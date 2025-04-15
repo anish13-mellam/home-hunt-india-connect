@@ -44,11 +44,14 @@ const SearchPage = () => {
       result = result.filter(property => !property.forRent);
     }
     
-    // Filter by location
+    // Filter by location - improved to check for partial matches with case insensitivity
     if (location) {
-      result = result.filter(property => 
-        property.location.toLowerCase().includes(location.toLowerCase())
-      );
+      result = result.filter(property => {
+        const propertyLocation = property.location.toLowerCase();
+        const searchLocation = location.toLowerCase();
+        
+        return propertyLocation.includes(searchLocation);
+      });
     }
     
     // Filter by property type
@@ -112,6 +115,8 @@ const SearchPage = () => {
     }
     
     setFilteredProperties(result);
+    console.log('Filtered Properties:', result);
+    console.log('Filter Criteria - Location:', location, 'Type:', propertyType, 'Budget:', budgetRange);
   }, [properties, searchType, location, propertyType, budgetRange]);
   
   return (
