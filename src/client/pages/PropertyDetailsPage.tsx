@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/client/components/ui/breadcrumb";
+} from "@/components/ui/breadcrumb";
 import {
   Carousel,
   CarouselContent,
