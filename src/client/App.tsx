@@ -11,6 +11,7 @@ import NotFound from "@/client/pages/NotFound";
 import LoginPage from "@/client/pages/LoginPage";
 import FeaturedPropertiesPage from "@/client/pages/FeaturedPropertiesPage";
 import FavoritesPage from "@/client/pages/FavoritesPage";
+import AddPropertyPage from "@/client/pages/AddPropertyPage";
 import { Toaster } from "@/client/components/ui/toaster";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/featured-properties" element={<FeaturedPropertiesPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/add-listing" element={<AddPropertyPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
