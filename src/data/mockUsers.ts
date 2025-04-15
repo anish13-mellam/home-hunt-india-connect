@@ -20,7 +20,8 @@ export const mockBuyerProfile: BuyerProfile = {
     },
     locations: ["Andheri", "Bandra", "Powai"],
     bhk: [2, 3]
-  }
+  },
+  recentSearches: []
 };
 
 export const mockAgentProfile: AgentProfile = {
@@ -39,6 +40,7 @@ export const mockAgentProfile: AgentProfile = {
   specialties: ["Luxury Apartments", "Commercial Properties", "NRI Investments"],
   bio: "With over 7 years of experience in Bangalore real estate market, I specialize in helping clients find their dream homes in the city's most sought-after neighborhoods. My expertise lies in luxury apartments and commercial properties, with a focus on delivering exceptional service.",
   ratings: 4.8,
+  rating: 4.8,
   verificationStatus: "verified"
 };
 

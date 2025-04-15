@@ -1,5 +1,6 @@
 
 // Mock user profiles for buyers and agents
+import { BuyerProfile, AgentProfile } from "@/types/user";
 
 export interface UserPreferences {
   propertyTypes: string[];
@@ -11,7 +12,7 @@ export interface UserPreferences {
   bhk: number[];
 }
 
-export interface BuyerProfile {
+export interface BuyerProfileClient {
   id: string;
   name: string;
   email: string;
@@ -23,7 +24,7 @@ export interface BuyerProfile {
   preferences?: UserPreferences;
 }
 
-export interface AgentProfile {
+export interface AgentProfileClient {
   id: string;
   name: string;
   email: string;
@@ -57,7 +58,10 @@ export const mockBuyerProfile: BuyerProfile = {
     },
     locations: ["Bandra", "Worli", "Andheri"],
     bhk: [2, 3]
-  }
+  },
+  role: "buyer",
+  createdAt: new Date(),
+  interestedIn: ["buy", "rent"]
 };
 
 export const mockAgentProfile: AgentProfile = {
@@ -72,7 +76,10 @@ export const mockAgentProfile: AgentProfile = {
   experience: 8,
   verificationStatus: "verified",
   rating: 4.8,
+  ratings: 4.8,
   listings: ["prop-1", "prop-2", "rent-1", "rent-5"],
   areas: ["South Mumbai", "Bandra", "Worli", "Andheri"],
-  specialties: ["Luxury Apartments", "Sea-facing Properties", "Investment Properties"]
+  specialties: ["Luxury Apartments", "Sea-facing Properties", "Investment Properties"],
+  role: "agent",
+  createdAt: new Date()
 };

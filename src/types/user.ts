@@ -25,6 +25,7 @@ export interface BuyerProfile extends User {
     locations: string[];
     bhk: number[];
   };
+  recentSearches?: string[];
 }
 
 export interface AgentProfile extends User {
@@ -36,6 +37,7 @@ export interface AgentProfile extends User {
   listings: string[];
   specialties: string[];
   bio: string;
-  ratings: number;
-  verificationStatus: "pending" | "verified" | "rejected";
+  ratings?: number;
+  rating?: number;
+  verificationStatus: "pending" | "verified" | "rejected" | "not-verified";
 }

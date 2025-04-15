@@ -21,6 +21,8 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/property/:id" element={<PropertyDetailsPage />} />
         <Route path="/messages" element={<MessagesPage />} />
+        <Route path="/profile/agent" element={<AgentProfile />} />
+        <Route path="/profile/buyer" element={<BuyerProfile />} />
         <Route path="/agent-profile" element={<AgentProfile />} />
         <Route path="/buyer-profile" element={<BuyerProfile />} />
         <Route path="/login" element={<LoginPage />} />
