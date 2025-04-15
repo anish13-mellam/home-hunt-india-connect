@@ -1,24 +1,24 @@
 
 import { useState, useEffect } from "react";
 
+const MOBILE_BREAKPOINT = 768;
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
-    // Function to check if screen width is mobile
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
     };
-
+    
     // Initial check
-    checkIsMobile();
-
-    // Add event listener for window resize
-    window.addEventListener("resize", checkIsMobile);
-
-    // Clean up
-    return () => window.removeEventListener("resize", checkIsMobile);
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    
+    // Modern event listener syntax
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
   }, []);
 
-  return isMobile;
+  return !!isMobile;
 }
