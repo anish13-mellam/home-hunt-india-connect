@@ -1,15 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import Layout from "@/client/components/layout/Layout";
 import { useParams } from "react-router-dom";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
   Carousel,
   CarouselContent,
@@ -106,22 +97,7 @@ const PropertyDetailsPage = () => {
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <Breadcrumb className="mb-6">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/search">Properties</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{property.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        {/* Remove breadcrumb section and continue with rest of the component */}
         
         {/* Header Section */}
         <div className="flex justify-between items-start mb-6 flex-wrap gap-4">
