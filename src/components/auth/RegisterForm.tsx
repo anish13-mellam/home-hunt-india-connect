@@ -2,12 +2,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { AlertCircle, Mail, Lock, User, Eye, EyeOff, Phone, ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import RegisterFormFields from "./components/RegisterFormFields";
+import { validateForm } from "./utils/registerValidation";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -27,35 +26,15 @@ const RegisterForm = () => {
     setError("");
     setLoading(true);
 
-    // Validation
-    if (!name || !email || !phone || !password || !confirmPassword) {
-      setError("All fields are required");
-      setLoading(false);
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      setLoading(false);
-      return;
-    }
-
-    // Validate phone number (basic Indian format)
-    const phoneRegex = /^[6-9]\d{9}$/;
-    if (!phoneRegex.test(phone)) {
-      setError("Please enter a valid 10-digit Indian phone number");
+    const validation = validateForm(name, email, phone, password, confirmPassword);
+    
+    if (!validation.isValid) {
+      setError(validation.error);
       setLoading(false);
       return;
     }
 
     try {
-      // In a real app, this would be an API call to register the user
       // Simulate registration process
       setTimeout(() => {
         toast({
@@ -63,9 +42,7 @@ const RegisterForm = () => {
           description: "Welcome to HomeHunt India",
         });
         
-        // Navigate to home page or login after registration
         navigate("/");
-        
         setLoading(false);
       }, 1000);
     } catch (error) {
@@ -83,112 +60,23 @@ const RegisterForm = () => {
         </Alert>
       )}
 
-      <div className="space-y-2">
-        <Label htmlFor="name">Full Name</Label>
-        <div className="relative">
-          <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input 
-            id="name" 
-            placeholder="John Doe" 
-            className="pl-10"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <div className="relative">
-          <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input 
-            id="email" 
-            type="email" 
-            placeholder="name@example.com" 
-            className="pl-10"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="phone">Phone Number</Label>
-        <div className="relative">
-          <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input 
-            id="phone" 
-            type="tel" 
-            placeholder="9876543210"
-            className="pl-10"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
-        <div className="relative">
-          <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input 
-            id="password" 
-            type={showPassword ? "text" : "password"} 
-            className="pl-10"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-            required
-          />
-          <button 
-            type="button"
-            className="absolute right-3 top-3 text-muted-foreground"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <EyeOff className="h-4 w-4" />
-            ) : (
-              <Eye className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <div className="relative">
-          <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input 
-            id="confirmPassword" 
-            type={showPassword ? "text" : "password"} 
-            className="pl-10"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            disabled={loading}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <Label>I am a</Label>
-        <RadioGroup defaultValue="buyer" value={userType} onValueChange={setUserType} className="flex space-x-4">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="buyer" id="buyer" />
-            <Label htmlFor="buyer" className="cursor-pointer">Buyer/Tenant</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="agent" id="agent" />
-            <Label htmlFor="agent" className="cursor-pointer">Agent/Owner</Label>
-          </div>
-        </RadioGroup>
-      </div>
+      <RegisterFormFields
+        name={name}
+        email={email}
+        phone={phone}
+        password={password}
+        confirmPassword={confirmPassword}
+        showPassword={showPassword}
+        userType={userType}
+        loading={loading}
+        setName={setName}
+        setEmail={setEmail}
+        setPhone={setPhone}
+        setPassword={setPassword}
+        setConfirmPassword={setConfirmPassword}
+        setShowPassword={setShowPassword}
+        setUserType={setUserType}
+      />
 
       <Button 
         type="submit" 
