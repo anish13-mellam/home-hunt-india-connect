@@ -10,6 +10,7 @@ import BuyerProfile from "./pages/BuyerProfile";
 import NotFound from "./pages/NotFound";
 import FavoritesPage from "./pages/FavoritesPage";
 import AddPropertyPage from "./pages/AddPropertyPage";
+import LoginPage from "./pages/LoginPage";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile/buyer" element={<BuyerProfile />} />
         <Route path="/agent-profile" element={<AgentProfile />} />
         <Route path="/buyer-profile" element={<BuyerProfile />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/add-listing" element={<AddPropertyPage />} />
         <Route path="*" element={<NotFound />} />
