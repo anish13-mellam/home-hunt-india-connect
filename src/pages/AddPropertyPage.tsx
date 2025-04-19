@@ -1,6 +1,7 @@
 
 import React from "react";
 import Layout from "@/components/layout/Layout";
+import PropertyForm from "@/components/properties/PropertyForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const AddPropertyPage = () => {
@@ -12,9 +13,7 @@ const AddPropertyPage = () => {
             <CardTitle>Post a Property</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-center py-8 text-muted-foreground">
-              Property form is available in the client version.
-            </p>
+            <PropertyForm />
           </CardContent>
         </Card>
       </div>
