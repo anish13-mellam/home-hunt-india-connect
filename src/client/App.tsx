@@ -12,6 +12,10 @@ import LoginPage from "@/client/pages/LoginPage";
 import FeaturedPropertiesPage from "@/client/pages/FeaturedPropertiesPage";
 import FavoritesPage from "@/client/pages/FavoritesPage";
 import AddPropertyPage from "@/client/pages/AddPropertyPage";
+import BuyPage from "@/client/pages/BuyPage";
+import RentPage from "@/client/pages/RentPage";
+import SellPage from "@/client/pages/SellPage";
+import AgentsPage from "@/client/pages/AgentsPage";
 import { Toaster } from "@/client/components/ui/toaster";
 
 function App() {
@@ -30,6 +34,10 @@ function App() {
         <Route path="/featured-properties" element={<FeaturedPropertiesPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/add-listing" element={<AddPropertyPage />} />
+        <Route path="/buy" element={<BuyPage />} />
+        <Route path="/rent" element={<RentPage />} />
+        <Route path="/sell" element={<SellPage />} />
+        <Route path="/agents" element={<AgentsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />

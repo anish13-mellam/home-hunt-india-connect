@@ -11,6 +11,11 @@ import NotFound from "./pages/NotFound";
 import FavoritesPage from "./pages/FavoritesPage";
 import AddPropertyPage from "./pages/AddPropertyPage";
 import LoginPage from "./pages/LoginPage";
+import BuyPage from "./pages/BuyPage";
+import RentPage from "./pages/RentPage";
+import SellPage from "./pages/SellPage";
+import AgentsPage from "./pages/AgentsPage";
+import FeaturedPropertiesPage from "./pages/FeaturedPropertiesPage";
 import { Toaster } from "./components/ui/toaster";
 
 function App() {
@@ -28,6 +33,11 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/add-listing" element={<AddPropertyPage />} />
+        <Route path="/buy" element={<BuyPage />} />
+        <Route path="/rent" element={<RentPage />} />
+        <Route path="/sell" element={<SellPage />} />
+        <Route path="/agents" element={<AgentsPage />} />
+        <Route path="/featured-properties" element={<FeaturedPropertiesPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
