@@ -1,4 +1,3 @@
-
 import React from "react";
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Check, MapPin, Phone, Mail } from "lucide-react";
 
-// Mock agent data
+// Updated agent data with new images
 const agents = [
   {
     id: 1,
     name: "Rajesh Kumar",
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     location: "Mumbai, Maharashtra",
     specialties: ["Residential", "Commercial"],
     experience: 8,
@@ -24,7 +23,7 @@ const agents = [
   {
     id: 2,
     name: "Priya Sharma",
-    image: "https://randomuser.me/api/portraits/women/1.jpg",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     location: "Bangalore, Karnataka",
     specialties: ["Luxury Homes", "Apartments"],
     experience: 6,
@@ -36,7 +35,7 @@ const agents = [
   {
     id: 3,
     name: "Amit Patel",
-    image: "https://randomuser.me/api/portraits/men/2.jpg",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     location: "Delhi NCR",
     specialties: ["Plots", "Builder Floor"],
     experience: 10,
@@ -48,7 +47,7 @@ const agents = [
   {
     id: 4,
     name: "Divya Singh",
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80",
     location: "Pune, Maharashtra",
     specialties: ["Villas", "Apartments"],
     experience: 5,
