@@ -180,7 +180,7 @@ export const popularCities = [
   { name: "Bangalore", properties: 6103, image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" },
   { name: "Chennai", properties: 3189, image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" },
   { name: "Hyderabad", properties: 4560, image: "https://images.unsplash.com/photo-1575010655566-b3713ebd4243?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" },
-  { name: "Pune", properties: 3876, image: "https://images.unsplash.com/photo-1624562563808-168480421459?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" }
+  { name: "Pune", properties: 3876, image: "https://images.unsplash.com/photo-1621494547944-5d18b93d1dbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80" }
 ];
 
 export const propertyTypes = [

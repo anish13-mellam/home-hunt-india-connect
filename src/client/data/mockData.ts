@@ -388,7 +388,7 @@ export const popularCities: City[] = [
   {
     name: "Hyderabad",
     properties: 865,
-    image: "https://images.pexels.com/photos/17511549/pexels-photo-17511549/free-photo-of-charminar-in-hyderabad-india.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: "https://images.pexels.com/photos/11797117/pexels-photo-11797117.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
   {
     name: "Chennai",
@@ -398,6 +398,6 @@ export const popularCities: City[] = [
   {
     name: "Pune",
     properties: 689,
-    image: "https://images.pexels.com/photos/15136368/pexels-photo-15136368/free-photo-of-aga-khan-palace-in-pune.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    image: "https://images.pexels.com/photos/3052361/pexels-photo-3052361.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   }
 ];
